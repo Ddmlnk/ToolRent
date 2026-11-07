@@ -48,16 +48,18 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+  --color-brand: #ff6b1a;
+  --color-ink: #111418;
 }
+
 .glass {
   background: rgb(255 255 255 / 0.3);
   backdrop-filter: blur(14px) saturate(180%);
-  -webkit-backdrop-filter: blur(14px) saturate(180%); /* Safari */
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
   border: 1px solid rgb(255 255 255 / 0.75);
-  border-radius: 28px;
   box-shadow:
     0 12px 32px rgb(17 20 24 / 0.1),
-    /* тінь */ inset 0 1px 0 rgb(255 255 255 / 0.6); /* світлий кант зверху */
+    inset 0 1px 0 rgb(255 255 255 / 0.6);
 }
 
 :root {
