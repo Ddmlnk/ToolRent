@@ -1,9 +1,9 @@
+import HowItWorks from "@/components/home/HowItWorks";
+
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main>
-        <h1>Hello world</h1>
-      </main>
-    </div>
+    <main className="mx-auto flex max-w-[1200px] flex-col gap-10 pt-10 md:gap-18 md:pt-16">
+      <HowItWorks />
+    </main>
   );
 }
