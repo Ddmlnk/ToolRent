@@ -18,7 +18,7 @@ export default function Hero() {
         <h1 className="text-[34px] font-bold leading-[1.1] tracking-tight text-ink md:text-[56px] md:leading-[1.07]">
           Потрібний інструмент — без покупки
         </h1>
-        <p className="max-w-[520px] text-ink/60">
+        <p className="max-w-130 text-ink/60">
           Бронюй перфоратори, газонокосарки та бетонозмішувачі на потрібні дати.
           Вартість зі знижкою й заставу рахуємо одразу — забираєш у найближчому
           пункті.
@@ -30,12 +30,12 @@ export default function Hero() {
               key={label}
               className="flex items-center gap-1.5 text-sm font-medium text-ink/60"
             >
-              <Icon size={18} className="text-[#1F9D6B]" />
+              <Icon size={18} className="text-green" />
               {label}
             </li>
           ))}
         </ul>
-        <div className="hidden h-[520px] w-[500px] shrink-0 rounded-[40px] bg-gradient-to-br from-orange-300 to-orange-600 lg:block" />
+        <div className="hidden h-130 w-125 shrink-0 rounded-[40px] bg-linear-to-br from-orange-300 to-orange-600 lg:block" />
       </div>
     </section>
   );

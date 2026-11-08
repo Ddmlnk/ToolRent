@@ -13,7 +13,7 @@ const links = [
 export default function Navbar() {
   const pathname = usePathname();
   return (
-    <header className=" glass sticky top-4 z-50 mx-auto flex max-w-[1200px] items-center justify-between rounded-full p-2 pl-3">
+    <header className=" glass sticky top-4 z-50 mx-auto flex max-w-300 items-center justify-between rounded-full p-2 pl-3">
       <Link href="/" className="flex items-center gap-2.5">
         <span className="flex size-10 items-center justify-center rounded-full bg-brand text-white">
           <Wrench size={20} />
