@@ -1,5 +1,14 @@
-import { Calendar, MapPin, ShieldCheck, Sparkles } from "lucide-react";
+import {
+  Calendar,
+  Drill,
+  MapPin,
+  ShieldCheck,
+  Sparkles,
+  Star,
+} from "lucide-react";
 import SearchBar from "../tools/SearchBar";
+import PriceCalc from "../tools/PriceCalc";
+import { tools } from "@/lib/mock-data";
 
 const trust = [
   { icon: ShieldCheck, label: "Застава повертається" },
@@ -35,7 +44,26 @@ export default function Hero() {
             </li>
           ))}
         </ul>
-        <div className="hidden h-130 w-125 shrink-0 rounded-[40px] bg-linear-to-br from-orange-300 to-orange-600 lg:block" />
+        <div className="relative hidden h-[380px] shrink-0 overflow-hidden rounded-[40px] bg-gradient-to-br from-orange-300 to-orange-600 md:block lg:h-[520px] lg:w-[500px]">
+          <div className="absolute -right-24 -top-28 size-90 rounded-full bg-white/30 blur-[60px]" />
+          <Drill
+            size={220}
+            strokeWidth={1.2}
+            className="absolute right-14 top-14 text-white"
+          />
+
+          <span className="glass absolute left-6 top-6 flex items-center gap-1.5 rounded-full bg-white/60 px-3.5 py-2 text-sm font-medium text-ink">
+            <Star size={16} className="fill-amber-400 text-amber-400" />
+            4.9 · 32 відгуки
+          </span>
+
+          <PriceCalc
+            tool={tools[0]}
+            days={3}
+            datesLabel="12 – 15 листопада"
+            className="absolute bottom-6 left-6 w-[320px]"
+          />
+        </div>
       </div>
     </section>
   );
