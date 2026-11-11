@@ -28,3 +28,18 @@ export function filterTools(
     return b.reviewsCount - a.reviewsCount; // popular
   });
 }
+
+export interface CatalogParams {
+  q?: string;
+  category?: string;
+  sort?: SortKey;
+}
+
+export function buildCatalogHref(params: CatalogParams): string {
+  const search = new URLSearchParams();
+  for (const [key, value] of Object.entries(params)) {
+    if (value) search.set(key, value);
+  }
+  const query = search.toString();
+  return query ? `/catalog?${query}` : "/catalog";
+}
