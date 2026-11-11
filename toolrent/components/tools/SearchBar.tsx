@@ -1,6 +1,10 @@
 import { ArrowRight, Calendar, Search } from "lucide-react";
 
-export default function SearchBar() {
+interface SearchBarProps {
+  defaultValue?: string;
+  category?: string;
+}
+export default function SearchBar({ defaultValue, category }: SearchBarProps) {
   return (
     <form
       action="/catalog"
@@ -11,8 +15,10 @@ export default function SearchBar() {
         type="search"
         name="q"
         placeholder="Що шукаєте? Перфоратор, газонокосарка…"
+        defaultValue={defaultValue}
         className="min-w-0 flex-1 bg-transparent text-ink outline-none placeholder:text-ink/40"
       />
+      {category && <input type="hidden" name="category" value={category} />}
       <div className="hidden items-center gap-3 md:flex">
         <span className="h-7 w-px bg-ink/15" />
         <button
