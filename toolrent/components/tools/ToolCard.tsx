@@ -1,15 +1,9 @@
 import { formatPrice, pluralUK } from "@/lib/format";
 import { icons } from "@/lib/icons";
-import { Tool, ToolColor } from "@/types";
+import { toolGradients } from "@/lib/tool-colors";
+import { Tool } from "@/types";
 import { ArrowRight, Heart, Star } from "lucide-react";
 import Link from "next/link";
-
-const gradients: Record<ToolColor, string> = {
-  orange: "from-orange-300 to-orange-600",
-  green: "from-green-300 to-emerald-600",
-  amber: "from-amber-200 to-orange-400",
-  teal: "from-teal-300 to-cyan-700",
-};
 
 interface ToolCardProps {
   tool: Tool;
@@ -23,7 +17,7 @@ export default function ToolCard({ tool }: ToolCardProps) {
       className="glass flex flex-col gap-3.5 rounded-[28px] p-2.5 pb-4 transition hover:-translate-y-1"
     >
       <div
-        className={`relative flex h-[196px] items-center justify-center overflow-hidden rounded-[20px] bg-linear-to-br ${gradients[tool.color]}`}
+        className={`relative flex h-[196px] items-center justify-center overflow-hidden rounded-[20px] bg-linear-to-br ${toolGradients[tool.color]}`}
       >
         {" "}
         <Icon size={84} strokeWidth={1.5} className="text-white" />

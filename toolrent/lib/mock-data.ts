@@ -92,3 +92,11 @@ export const tools: Tool[] = [
     color: "teal",
   },
 ];
+
+export function getToolById(id: string): Tool | undefined {
+  return tools.find((tool) => tool.id === id);
+}
+
+export function getCategoryById(id: string): Category | undefined {
+  return categories.find((category) => category.id === id);
+}
