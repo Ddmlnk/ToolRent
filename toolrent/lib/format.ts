@@ -11,3 +11,13 @@ export function pluralUK(n: number, forms: [string, string, string]): string {
 export function formatPrice(value: number): string {
   return `${value.toLocaleString("uk-UA")} ₴`;
 }
+
+// "2026-11-12" → Date о 00:00 за місцевим часом
+export function parseInputDate(value: string): Date {
+  return new Date(`${value}T00:00`);
+}
+
+// Date → "12 листопада"
+export function formatDayMonth(date: Date): string {
+  return date.toLocaleDateString("uk-UA", { day: "numeric", month: "long" });
+}
