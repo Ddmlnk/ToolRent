@@ -1,13 +1,75 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
-  provider = "prisma-client"
-  output   = "../lib/generated/prisma"
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
+}
+
+enum ToolColor {
+  orange
+  green
+  amber
+  teal
+}
+
+enum BookingStatus {
+  PENDING     // очікує підтвердження
+  CONFIRMED   // підтверджено менеджером
+  ISSUED      // видано клієнту
+  RETURNED    // повернуто
+  CANCELLED   // скасовано
+}
+
+model Category {
+  id    String @id @default(cuid())
+  slug  String @unique
+  name  String
+  icon  String
+  tools Tool[]
+}
+
+model Tool {
+  id           String     @id @default(cuid())
+  name         String
+  brand        String
+  dailyRate    Int
+  marketValue  Int
+  rating       Float      @default(0)
+  reviewsCount Int        @default(0)
+  icon         String
+  color        ToolColor
+  categoryId   String
+  category     Category   @relation(fields: [categoryId], references: [id])
+  units        ToolUnit[]
+  createdAt    DateTime   @default(now())
+
+  @@index([categoryId])
+}
+
+// Фізичний екземпляр інструмента: 3 однакові перфоратори = 1 Tool + 3 ToolUnit
+model ToolUnit {
+  id              String    @id @default(cuid())
+  inventoryNumber String    @unique
+  toolId          String
+  tool            Tool      @relation(fields: [toolId], references: [id], onDelete: Cascade)
+  bookings        Booking[]
+}
+
+model Booking {
+  id            String        @id @default(cuid())
+  unitId        String
+  unit          ToolUnit      @relation(fields: [unitId], references: [id])
+  customerName  String
+  customerPhone String
+  dateFrom      DateTime      @db.Date
+  dateTo        DateTime      @db.Date
+  days          Int
+  total         Int
+  deposit       Int
+  status        BookingStatus @default(PENDING)
+  createdAt     DateTime      @default(now())
+
+  @@index([unitId])
 }
