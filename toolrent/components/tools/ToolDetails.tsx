@@ -1,20 +1,21 @@
-import { getCategoryById, getToolById } from "@/lib/mock-data";
-import { icons } from "@/lib/icons";
-import { notFound } from "next/navigation";
-import { calcPrice } from "@/lib/pricing";
 import Link from "next/link";
-import { ChevronLeft, ShieldCheck, Star } from "lucide-react";
-import { toolGradients } from "@/lib/tool-colors";
-import { formatPrice, pluralUK } from "@/lib/format";
+import { notFound } from "next/navigation";
+import { ChevronLeft, Star, ShieldCheck } from "lucide-react";
 import BookingPanel from "./BookingPanel";
+import { getToolById, getCategoryById } from "@/lib/mock-data";
+import { icons } from "@/lib/icons";
+import { toolGradients } from "@/lib/tool-colors";
+import { calcPrice } from "@/lib/pricing";
+import { formatPrice, pluralUK } from "@/lib/format";
 
 interface ToolDetailsProps {
   params: Promise<{ id: string }>;
 }
 
-export default async function ToolDetails(params: ToolDetailsProps) {
+export default async function ToolDetails({ params }: ToolDetailsProps) {
   const { id } = await params;
   const tool = getToolById(id);
+
   if (!tool) notFound();
 
   const category = getCategoryById(tool.categoryId);
@@ -24,11 +25,12 @@ export default async function ToolDetails(params: ToolDetailsProps) {
   return (
     <div className="flex flex-col gap-6">
       <Link
-        href={"/catalog"}
+        href="/catalog"
         className="flex w-fit items-center gap-1 text-sm font-medium text-ink/60 hover:text-ink"
       >
         <ChevronLeft size={16} /> До каталогу
       </Link>
+
       <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:items-start">
         {/* Ліва колонка */}
         <div className="flex flex-col gap-6">
@@ -37,9 +39,10 @@ export default async function ToolDetails(params: ToolDetailsProps) {
           >
             <Icon size={160} strokeWidth={1.2} className="text-white" />
           </div>
+
           <div className="flex flex-col gap-2">
             <span className="text-sm font-medium uppercase text-ink/40">
-              {category?.name} {tool.brand}
+              {category?.name} · {tool.brand}
             </span>
             <h1 className="text-3xl font-bold tracking-tight text-ink md:text-4xl">
               {tool.name}
@@ -50,6 +53,7 @@ export default async function ToolDetails(params: ToolDetailsProps) {
               {pluralUK(tool.reviewsCount, ["відгук", "відгуки", "відгуків"])}
             </span>
           </div>
+
           <div className="glass grid grid-cols-2 gap-4 rounded-[28px] p-5">
             <div>
               <p className="text-sm text-ink/60">Тариф</p>
