@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronLeft, Star, ShieldCheck } from "lucide-react";
 import BookingPanel from "./BookingPanel";
-import { getToolById, getCategoryById } from "@/lib/mock-data";
+import { getToolById, getCategories } from "@/lib/data";
 import { icons } from "@/lib/icons";
 import { toolGradients } from "@/lib/tool-colors";
 import { calcPrice } from "@/lib/pricing";
@@ -14,11 +14,12 @@ interface ToolDetailsProps {
 
 export default async function ToolDetails({ params }: ToolDetailsProps) {
   const { id } = await params;
-  const tool = getToolById(id);
+  const tool = await getToolById(id);
 
   if (!tool) notFound();
 
-  const category = getCategoryById(tool.categoryId);
+  const categories = await getCategories();
+  const category = categories.find((c) => c.id === tool.categoryId);
   const Icon = icons[tool.icon];
   const { deposit } = calcPrice(tool.dailyRate, tool.marketValue, 1);
 

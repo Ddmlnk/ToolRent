@@ -4,7 +4,7 @@ import {
   filterTools,
   SortKey,
 } from "@/lib/catalog";
-import { categories, tools } from "@/lib/mock-data";
+import { getTools, getCategories } from "@/lib/data";
 import SearchBar from "../tools/SearchBar";
 import Link from "next/link";
 import { pluralUK } from "@/lib/format";
@@ -23,6 +23,7 @@ const sortOptions: { key: SortKey; label: string }[] = [
 export default async function CatalogResults({
   searchParams,
 }: CatalogResultsProps) {
+  const [tools, categories] = await Promise.all([getTools(), getCategories()]);
   const { q, category, sort = "popular" } = await searchParams;
   const list = filterTools(tools, categories, {
     q,
