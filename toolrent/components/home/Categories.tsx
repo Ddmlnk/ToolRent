@@ -1,9 +1,13 @@
-import { categories } from "@/lib/mock-data";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { CategoryTile } from "./CategoryTile";
+import { Category } from "@/types";
 
-export default function Categories() {
+interface CategoriesProps {
+  categories: Category[];
+}
+
+export default function Categories({ categories }: CategoriesProps) {
   return (
     <section className="flex flex-col gap-4 md:gap-6">
       <div className="flex items-center justify-between">

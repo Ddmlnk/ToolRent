@@ -5,6 +5,7 @@ import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import ToolCard from "../tools/ToolCard";
+import { Category, Tool } from "@/types";
 
 interface Filter {
   label: string;
@@ -18,10 +19,17 @@ const filters: Filter[] = [
   { label: "Будівельні", categoryId: "c3" },
 ];
 
-export default function Popular() {
+interface PopularProps {
+  tools: Tool[];
+  categories: Category[];
+}
+
+export default function Popular({ tools, categories }: PopularProps) {
   const [active, setActive] = useState<string | null>(null);
-  const visibleTools = active
-    ? tools.filter((tool) => tool.categoryId === active)
+
+  const activeCategory = categories.find((c) => c.slug === active);
+  const visibleTools = activeCategory
+    ? tools.filter((tool) => tool.categoryId === activeCategory.id)
     : tools;
   return (
     <section className="flex flex-col gap-4 md:gap-6">

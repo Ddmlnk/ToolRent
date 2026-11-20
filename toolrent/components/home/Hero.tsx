@@ -8,13 +8,27 @@ import {
 } from "lucide-react";
 import SearchBar from "../tools/SearchBar";
 import PriceCalc from "../tools/PriceCalc";
-import { tools } from "@/lib/mock-data";
+import type { Tool } from "@/types";
 
 const trust = [
   { icon: ShieldCheck, label: "Застава повертається" },
   { icon: Calendar, label: "Від 1 доби" },
   { icon: MapPin, label: "3 пункти видачі" },
 ];
+
+const demoTool: Tool = {
+  id: "demo",
+  name: "Перфоратор Bosch GBH 2-26",
+  brand: "Bosch",
+  categoryId: "",
+  dailyRate: 350,
+  marketValue: 4200,
+  rating: 4.9,
+  reviewsCount: 32,
+  available: true,
+  icon: "drill",
+  color: "orange",
+};
 
 export default function Hero() {
   return (
@@ -58,9 +72,9 @@ export default function Hero() {
           </span>
 
           <PriceCalc
-            tool={tools[0]}
+            tool={demoTool}
             days={3}
-            datesLabel="12 – 15 листопада"
+            datesLabel="12 - 15 листопада"
             className="absolute bottom-6 left-6 w-[320px]"
           />
         </div>
