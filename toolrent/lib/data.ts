@@ -3,18 +3,12 @@ import { cacheLife, cacheTag } from "next/cache";
 import { prisma } from "./prisma";
 import type { Prisma } from "@/generated/prisma";
 import type { Category, Tool, IconName } from "@/types";
+import { ACTIVE_STATUSES } from "./constants";
 
-// Статуси, за яких одиниця вважається зайнятою
-const ACTIVE_STATUSES = ["PENDING", "CONFIRMED", "ISSUED"] as const;
-
-function startOfToday(): Date {
-  const date = new Date();
-  date.setHours(0, 0, 0, 0);
-  return date;
-}
+import { todayIso, isoToDbDate } from "./dates";
 
 async function findTools(where: Prisma.ToolWhereInput = {}): Promise<Tool[]> {
-  const today = startOfToday();
+  const today = isoToDbDate(todayIso());
 
   const rows = await prisma.tool.findMany({
     where,

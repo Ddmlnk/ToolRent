@@ -29,3 +29,18 @@ export interface Tool {
   icon: IconName;
   color: ToolColor;
 }
+
+export type BookingField =
+  | "dateFrom"
+  | "dateTo"
+  | "customerName"
+  | "customerPhone";
+
+export type BookingFormState =
+  | { status: "idle" }
+  | { status: "success"; bookingId: string; total: number; deposit: number }
+  | {
+      status: "error";
+      message: string;
+      fieldErrors?: Partial<Record<BookingField, string>>;
+    };
