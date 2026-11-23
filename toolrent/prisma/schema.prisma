@@ -1,3 +1,4 @@
+
 generator client {
   provider = "prisma-client-js"
   output   = "../generated/prisma"
@@ -15,11 +16,11 @@ enum ToolColor {
 }
 
 enum BookingStatus {
-  PENDING     // очікує підтвердження
-  CONFIRMED   // підтверджено менеджером
-  ISSUED      // видано клієнту
-  RETURNED    // повернуто
-  CANCELLED   // скасовано
+  PENDING // очікує підтвердження
+  CONFIRMED // підтверджено менеджером
+  ISSUED // видано клієнту
+  RETURNED // повернуто
+  CANCELLED // скасовано
 }
 
 model Category {
@@ -49,6 +50,7 @@ model Tool {
 }
 
 // Фізичний екземпляр інструмента: 3 однакові перфоратори = 1 Tool + 3 ToolUnit
+
 model ToolUnit {
   id              String    @id @default(cuid())
   inventoryNumber String    @unique
@@ -72,4 +74,69 @@ model Booking {
   createdAt     DateTime      @default(now())
 
   @@index([unitId])
+}
+
+model User {
+  id            String    @id
+  name          String
+  email         String
+  emailVerified Boolean   @default(false)
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  role          String    @default("customer")
+  phone         String?
+  sessions      Session[]
+  accounts      Account[]
+
+  @@unique([email])
+  @@map("user")
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@index([userId])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@index([userId])
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
 }
